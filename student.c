@@ -47,4 +47,4 @@ void freeAll(struct Student *head) {
 void menu() {
     printf("\t[1] Add Student\n");
     printf("\t[0] Exit\n");
-};
+}
