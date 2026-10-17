@@ -32,8 +32,16 @@ int main(void) {
             scanf("%f", &gwa);
             
             head = addStudent(head, id, name, age, gwa);
+            printf("Student added.\n");
         }
+
+        if (choice == 2) {
+            printf("------------------------------------\n");
+            displayStudents(head);
+        }
+
         printf("------------------------------------\n");
+        Sleep(2000);
     } while (choice != 0);
     printf("Exiting Program");
     fflush(stdout);

@@ -15,6 +15,7 @@ void freeAll(struct Student *head);
 
 // Functions for display purposes
 void menu();
+void displayStudents(struct Student *head);
 
 
 #endif

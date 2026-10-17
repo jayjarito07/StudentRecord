@@ -17,7 +17,7 @@ struct Student *addStudent(struct Student *head, int id, const char *name, int a
     newStudent->next = NULL;    // end of the record
     
 
-    // if no student in record
+    // if no student in the record
     if (head == NULL) {
         return newStudent;
     }
@@ -46,5 +46,31 @@ void freeAll(struct Student *head) {
 // display menu
 void menu() {
     printf("\t[1] Add Student\n");
+    printf("\t[2] Display Students Info\n");
     printf("\t[0] Exit\n");
+}
+
+// display all students
+void displayStudents(struct Student *head) {
+    struct Student *current = head;
+    int count = 1;
+    
+    if (current == NULL) {
+        printf("There's no student in the record.\n");
+    }
+
+    while (current != NULL) {
+        printf("Student #%d\n", count);
+        printf("\tName: %s\n", current->name);
+        printf("\tID: %d\n", current->id);
+        printf("\tAge: %d\n", current->age);
+        printf("\tGWA: %.2f\n", current->gwa);
+
+        if (current->next != NULL) {
+            printf("\n");
+        }
+
+        current = current->next;
+        count++;
+    }
 }
