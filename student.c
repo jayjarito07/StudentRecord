@@ -204,3 +204,15 @@ void saveReport(struct Student *head) {
         printf("Saved to file successfully.\n");
     }
 }
+
+// load and report the result
+struct Student *loadReport() {
+    struct Student *load = loadFile();
+    if (load == NULL) {
+        printf("No saved students found.\n");
+        return NULL;
+    } else {
+        printf("File loaded successfully.\n");
+        return load;
+    }
+}

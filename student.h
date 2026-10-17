@@ -25,7 +25,7 @@ void menu(void);
 void displayStudents(struct Student *head);
 void dots(void);
 void saveReport(struct Student *head);
-void loadReport(struct Student *head);
+struct Student *loadReport();
 
 
 #endif

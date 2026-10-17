@@ -4,12 +4,15 @@
 #include <windows.h>
 
 int main(void) {
-    struct Student *head = loadFile();
+    printf("Loading file");
+    fflush(stdout);
+    dots();
+    struct Student *head = loadReport();
     int choice;
 
-    printf("\n====================================\n");
-    printf("====== STUDENT RECORD MANAGER ======");
-    printf("\n====================================\n");
+    printf("====================================\n");
+    printf("====== STUDENT RECORD MANAGER ======\n");
+    printf("====================================\n");
     do {
         menu();
         printf("\nChoice: ");
