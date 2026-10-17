@@ -4,7 +4,7 @@
 #include <windows.h>
 
 int main(void) {
-    struct Student *head = NULL;
+    struct Student *head = loadFile();
     int choice;
 
     printf("\n====================================\n");
@@ -44,6 +44,7 @@ int main(void) {
             
             head = addStudent(head, id, name, age, gwa);
             printf("Student added.\n");
+            saveReport(head);
         }
 
         else if (choice == 2) {
@@ -102,6 +103,7 @@ int main(void) {
 
                 head = deleteStudent(head, id);
                 printf("Student #%d successfully deleted.\n", id);
+                saveReport(head);
             } 
             else {
                 printf("Student not found in the records.\n");
@@ -128,6 +130,7 @@ int main(void) {
             if (found != NULL) {
                 printf("Student #%d found.\n\n", id);
                 editStudent(head, found);
+                saveReport(head);
             } 
             else {
                 printf("Student #%d not found in the records.\n", id);

@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <windows.h>
 #include "student.h"
+#define RECORDS "records.txt"
 
 // add student
 struct Student *addStudent(struct Student *head, int id, const char *name, int age, float gwa) {
-
     // allocate memory for new student
     struct Student *newStudent = malloc(sizeof(struct Student));
     
@@ -41,6 +41,40 @@ void menu(void) {
     printf("\t[4] Delete Student\n");
     printf("\t[5] Edit Student Info\n");
     printf("\t[0] Exit\n");
+}
+
+// save to file
+int saveToFile(struct Student *head) {
+    FILE *file = fopen(RECORDS, "w");
+    struct Student *current = head;
+    if (file == NULL) {
+        return 1;
+    }
+    while (current != NULL) {
+        fprintf(file, "%d %s %d %.2f\n", current->id, current->name, current->age, current->gwa);
+        current = current->next;
+    }
+    fclose(file);
+    return 0;
+}
+
+// load file
+struct Student *loadFile(void) {
+    FILE *file = fopen(RECORDS, "r");
+    struct Student *head = NULL;
+    int id, age;
+    char name[50];
+    float gwa;
+
+    if (file == NULL) {
+        return NULL;
+    }
+
+    while (fscanf(file, "%d %49s %d %f\n", &id, name, &age, &gwa) == 4) {
+        head = addStudent(head, id, name, age, gwa);
+    }
+    fclose(file);
+    return head;
 }
 
 // edit a student info
@@ -159,5 +193,14 @@ void freeAll(struct Student *head) {
         next = current->next;           // store the next node so you dont lose it
         free(current);                  // free the current node
         current = next;                 // move on the next node
+    }
+}
+
+// save and report the result
+void saveReport(struct Student *head) {
+    if (saveToFile(head) == 1) {
+        printf("Saving failed.\n");
+    } else {
+        printf("Saved to file successfully.\n");
     }
 }
