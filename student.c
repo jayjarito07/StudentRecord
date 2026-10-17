@@ -49,7 +49,34 @@ void menu(void) {
     printf("\t[1] Add Student\n");
     printf("\t[2] Display Students Info\n");
     printf("\t[3] Search Student ID\n");
+    printf("\t[4] Delete Student\n");
     printf("\t[0] Exit\n");
+}
+
+// delete a student
+struct Student *deleteStudent(struct Student *head, int id) {
+    if (head == NULL) {
+        return NULL;
+    }
+
+    struct Student *current = head->next;
+    struct Student *prev = head;
+
+    if (head->id == id) {
+        free(head);
+        return current;
+    }
+
+    while (current != NULL) {
+        if (current->id == id) {
+            prev->next = current->next;
+            free(current);
+            return head;
+        }
+        prev = current;
+        current = current->next;
+    }
+    return head;    // target id not found
 }
 
 // display all students
@@ -77,6 +104,7 @@ void displayStudents(struct Student *head) {
     }
 }
 
+// find a student
 struct Student *findStudent(struct Student *head, int id) {
     struct Student *current = head;
 
@@ -89,6 +117,7 @@ struct Student *findStudent(struct Student *head, int id) {
     return NULL;    // if no match, return NULL
 }
 
+// loading dots
 void dots(void) {
     for (int i = 0; i < 3; i++) {
         Sleep(500);

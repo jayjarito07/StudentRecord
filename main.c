@@ -34,7 +34,7 @@ int main(void) {
                     printf("------------------------------------\n");
                 }
             } while (findStudent(head, id) != NULL || id <= 0);
-            
+
             printf("Name: ");
             scanf("%49s", name);
             printf("Age: ");
@@ -46,12 +46,12 @@ int main(void) {
             printf("Student added.\n");
         }
 
-        if (choice == 2) {
+        else if (choice == 2) {
             printf("------------------------------------\n");
             displayStudents(head);
         }
 
-        if (choice == 3) {
+        else if (choice == 3) {
             int id = 0;
 
             do {
@@ -77,6 +77,40 @@ int main(void) {
             else {
                 printf("Student not found.\n");
             }
+        }
+
+        else if (choice == 4) {
+            int id = 0;
+
+            do {
+                printf("------------------------------------\n");
+                printf("Enter the Student ID: ");
+                scanf("%d", &id);
+
+                if (id <= 0) { printf("Invalid ID.\n"); }
+            } while (id <= 0);
+            
+            printf("Searching student #%d", id);
+            fflush(stdout);
+            dots();
+            if (findStudent(head, id) != NULL) {
+                printf("Student #%d found.\n", id);
+                Sleep(200);
+                printf("Deleting student #%d", id);
+                fflush(stdout);
+                dots();
+
+                head = deleteStudent(head, id);
+                printf("Student #%d successfully deleted.\n", id);
+            } 
+            else {
+                printf("Student not found in the records.\n");
+            }
+        }
+
+        else if(choice != 0) { 
+            printf("------------------------------------\n");
+            printf("INVALID CHOICE.\n"); 
         }
 
         printf("------------------------------------\n");
