@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <windows.h>
 #include "student.h"
 
 // add student
@@ -44,9 +45,10 @@ void freeAll(struct Student *head) {
 }
 
 // display menu
-void menu() {
+void menu(void) {
     printf("\t[1] Add Student\n");
     printf("\t[2] Display Students Info\n");
+    printf("\t[3] Search Student ID\n");
     printf("\t[0] Exit\n");
 }
 
@@ -73,4 +75,29 @@ void displayStudents(struct Student *head) {
         current = current->next;
         count++;
     }
+}
+
+struct Student *findStudent(struct Student *head, int id) {
+    struct Student *current = head;
+
+    while (current != NULL) {
+        if (current->id == id) {
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;    // if no match, return NULL
+}
+
+void dots(void) {
+    for (int i = 0; i < 3; i++) {
+        Sleep(500);
+        printf(".");
+        fflush(stdout);
+
+        if (i == 2) {
+            printf("\n");
+        }
+    }
+    Sleep(500);
 }

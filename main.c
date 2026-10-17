@@ -8,12 +8,11 @@ int main(void) {
     int choice;
 
     printf("\n====================================\n");
-    printf("=======STUDENT RECORD MANAGER=======");
+    printf("====== STUDENT RECORD MANAGER ======");
     printf("\n====================================\n");
     do {
         menu();
-        printf("------------------------------------\n");
-        printf("Choice: ");
+        printf("\nChoice: ");
         scanf("%d", &choice);
     
         if (choice == 1) {
@@ -22,8 +21,20 @@ int main(void) {
             float gwa;
 
             printf("------------------------------------\n");
-            printf("ID: ");
-            scanf("%d", &id);
+            do {
+                printf("ID: ");
+                scanf("%d", &id);
+
+                if (id <= 0) {
+                    printf("Not a valid ID. Try another.\n"); 
+                    printf("------------------------------------\n");
+                }
+                else if(findStudent(head, id) != NULL) {
+                    printf("ID already exists. Try another.\n");
+                    printf("------------------------------------\n");
+                }
+            } while (findStudent(head, id) != NULL || id <= 0);
+            
             printf("Name: ");
             scanf("%49s", name);
             printf("Age: ");
@@ -40,19 +51,44 @@ int main(void) {
             displayStudents(head);
         }
 
+        if (choice == 3) {
+            int id = 0;
+
+            do {
+                printf("------------------------------------\n");
+                printf("Enter the Student ID: ");
+                scanf("%d", &id);
+
+                if (id <= 0) { printf("Invalid ID.\n"); }
+            } while (id <= 0);
+            
+            struct Student *foundStudent = findStudent(head, id);
+            printf("------------------------------------\n");
+            printf("Finding student");
+            fflush(stdout);
+            dots();
+            if (foundStudent != NULL) {
+                printf("Student found.\n\n");
+                printf("ID: %d\n", foundStudent->id);
+                printf("Name: %s\n", foundStudent->name);
+                printf("Age: %d\n", foundStudent->age);
+                printf("GWA: %.2f\n", foundStudent->gwa);
+            }
+            else {
+                printf("Student not found.\n");
+            }
+        }
+
         printf("------------------------------------\n");
-        Sleep(2000);
+        if (choice != 0) {
+            Sleep(2000);
+        }
     } while (choice != 0);
+
     printf("Exiting Program");
     fflush(stdout);
-
-    for (int i = 0; i < 3; i++) {
-        Sleep(500);
-        printf(".");
-        fflush(stdout);
-    }
-    Sleep(500);
-    printf("\nExited Successfully.\n");
+    dots();
+    printf("Exited Successfully.\n");
 
     freeAll(head);
     return 0;

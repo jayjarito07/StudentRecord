@@ -12,10 +12,11 @@ struct Student {
 // Functions for program features
 struct Student *addStudent(struct Student *head, int id, const char *name, int age, float gwa);
 void freeAll(struct Student *head);
+struct Student *findStudent(struct Student *head, int id);
 
 // Functions for display purposes
-void menu();
+void menu(void);
 void displayStudents(struct Student *head);
-
+void dots(void);
 
 #endif
