@@ -64,7 +64,7 @@ int main(void) {
             
             struct Student *foundStudent = findStudent(head, id);
             printf("------------------------------------\n");
-            printf("Finding student");
+            printf("Searching for Student #%d", id);
             fflush(stdout);
             dots();
             if (foundStudent != NULL) {
@@ -90,7 +90,7 @@ int main(void) {
                 if (id <= 0) { printf("Invalid ID.\n"); }
             } while (id <= 0);
             
-            printf("Searching student #%d", id);
+            printf("Searching for student #%d", id);
             fflush(stdout);
             dots();
             if (findStudent(head, id) != NULL) {
@@ -105,6 +105,32 @@ int main(void) {
             } 
             else {
                 printf("Student not found in the records.\n");
+            }
+        }
+
+        else if (choice == 5) {
+            int id = 0;
+            struct Student *found = NULL;
+
+            do {
+                printf("------------------------------------\n");
+                printf("Enter the student ID: ");
+                scanf("%d", &id);
+
+                if (id <= 0) { printf("Invalid ID.\n"); }
+            } while (id <= 0);
+            found = findStudent(head, id);
+
+            printf("Searching for student #%d", id);
+            fflush(stdout);
+            dots();
+
+            if (found != NULL) {
+                printf("Student #%d found.\n\n", id);
+                editStudent(head, found);
+            } 
+            else {
+                printf("Student #%d not found in the records.\n", id);
             }
         }
 

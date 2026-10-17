@@ -14,6 +14,7 @@ struct Student *addStudent(struct Student *head, int id, const char *name, int a
 void freeAll(struct Student *head);
 struct Student *findStudent(struct Student *head, int id);
 struct Student *deleteStudent(struct Student *head, int id);
+void editStudent(struct Student *head, struct Student *student);
 
 // Functions for display purposes
 void menu(void);
