@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
+#include <ctype.h>
 #include <windows.h>
 #include "student.h"
 #define RECORDS "records.txt"
+#define BUFFER_SIZE 4096
 
 // add student
 struct Student *addStudent(struct Student *head, int id, const char *name, int age, float gwa) {
@@ -215,4 +218,67 @@ struct Student *loadReport() {
         printf("File loaded successfully.\n");
         return load;
     }
+}
+
+// input validation for int
+bool parseInt(char *string, int *integer) {
+    int i = 0;
+
+    while (isspace(string[i])) i++;
+
+    int length = strlen(string);
+    if (length == i) return false;
+
+    char buffer_char[BUFFER_SIZE];
+    int buffer_int = 0;
+
+    if (string[i] == '-' || string[i] == '+') {    
+        buffer_char[buffer_int] = string[i];     
+        buffer_int++;                            
+        i++;                             
+
+        if (!isdigit(string[i])) return false;
+    }
+
+    while (isdigit(string[i]) && !isspace(string[i])) {
+        buffer_char[buffer_int] = string[i];      
+        buffer_int++;                            
+        i++;                                       
+    }                                             
+
+    while (string[i] != '\0') {
+        if (!isspace(string[i])) return false;
+        i++;
+    }
+
+    buffer_char[buffer_int] = '\0';
+    *integer = atoi(buffer_char);
+    return true;
+}
+
+// clear buffer
+void clearBuffer(void) {
+    int c;
+
+    while ((c = getchar()) != '\n' && c != EOF) {}
+}
+
+// scan an int
+int scanInt(const char *var_name) {
+    char buffer[BUFFER_SIZE];
+    bool parsed_correct = true;
+    int integer;
+
+    do {
+        printf("%s", var_name);
+        fgets(buffer, BUFFER_SIZE, stdin);
+        parsed_correct = parseInt(buffer, &integer);
+
+        if (!parsed_correct) {
+            printf("Invalid %s.\n", var_name);
+            printf("------------------------------------\n");
+        }
+    } while (!parsed_correct);
+
+    return integer;
 }

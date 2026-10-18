@@ -1,45 +1,51 @@
 #include <stdio.h>
-#include "student.h"
 #include <string.h>
+#include <stdbool.h>
 #include <windows.h>
+#include "student.h"
+#define BUFFER_SIZE 4096
+#define NAME_SIZE 100
 
 int main(void) {
     printf("Loading file");
     fflush(stdout);
     dots();
     struct Student *head = loadReport();
-    int choice;
+    int choice = 0;
 
     printf("====================================\n");
     printf("====== STUDENT RECORD MANAGER ======\n");
-    printf("====================================\n");
+    printf("====================================\n\n");
     do {
         menu();
-        printf("\nChoice: ");
-        scanf("%d", &choice);
+        do {
+            choice = scanInt("Choice: ");
+            if (choice != 0 && choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5) {
+                printf("Invalid Choice.\n");
+                printf("------------------------------------\n");
+            }
+        } while (choice != 0 && choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5);
     
         if (choice == 1) {
             int id, age;
-            char name[50];
+            char name[NAME_SIZE];
             float gwa;
 
             printf("------------------------------------\n");
+            id = scanInt("ID: ");
             do {
-                printf("ID: ");
-                scanf("%d", &id);
-
                 if (id <= 0) {
-                    printf("Not a valid ID. Try another.\n"); 
+                    printf("Not a valid ID. Try another.\n");
                     printf("------------------------------------\n");
                 }
-                else if(findStudent(head, id) != NULL) {
+                if(findStudent(head, id) != NULL) {
                     printf("ID already exists. Try another.\n");
                     printf("------------------------------------\n");
                 }
             } while (findStudent(head, id) != NULL || id <= 0);
 
             printf("Name: ");
-            scanf("%49s", name);
+            fgets(name, NAME_SIZE, stdin);
             printf("Age: ");
             scanf("%d", &age);
             printf("GWA: ");
@@ -138,11 +144,6 @@ int main(void) {
             else {
                 printf("Student #%d not found in the records.\n", id);
             }
-        }
-
-        else if(choice != 0) { 
-            printf("------------------------------------\n");
-            printf("INVALID CHOICE.\n"); 
         }
 
         printf("------------------------------------\n");

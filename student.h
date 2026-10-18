@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #ifndef STUDENT_H
 #define STUDENT_H
 
@@ -27,5 +28,9 @@ void dots(void);
 void saveReport(struct Student *head);
 struct Student *loadReport();
 
+// Input
+bool parseInt(char *string, int *integer);
+void clearBuffer(void);
+int scanInt(const char *var_name);
 
 #endif
